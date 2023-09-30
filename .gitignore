@@ -1,1 +1,5 @@
 pdfservices-api-credentials.json
+__pycache__/
+inputs/
+intermediate/
+outputs/
