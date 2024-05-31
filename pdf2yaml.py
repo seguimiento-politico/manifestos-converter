@@ -1,4 +1,5 @@
 import os.path
+import sys
 from pdfminer.high_level import extract_pages
 from pdfminer.layout import LTTextContainer, LTChar
 import yaml
@@ -10,6 +11,7 @@ def extract_content_from_pdf(pdf_path):
     
     for page_layout in extract_pages(pdf_path):
         for element in page_layout:
+            print(element)
             if isinstance(element, LTTextContainer):
                 # Estimar si es un header basado en el tamaño de fuente y el estilo
                 font_sizes = [char.size for char in element if isinstance(char, LTChar)]
@@ -55,9 +57,9 @@ def convert_pdf_to_yaml(pdf_path, yaml_path):
 
 # get base path.
 base_path = os.path.dirname(os.path.abspath(__file__))
-input_dir = "/resources/"
-output_dir = "/output/"
-filename = "2019-coalicion-progresista.pdf"
+input_dir = "/inputs/"
+output_dir = "/outputs/"
+filename = sys.argv[1]
 file_path = base_path + input_dir + filename
 
 # Convertir PDF a YAML

@@ -1,9 +1,18 @@
+# Desarrollo a medias. Lo abandono para mejorar las soluiciones basadas en pdfminer.six o en pdftotext
+
+# Sirve para generar medianamente bien un índice (index), pero no para el resto del contenido (index2)
+# Emplea como input el output de extract_text_....
+# La dificultad reside en que los textos aparecen fragmentados en el structuredData
+
+
 import json
+import sys
 import yaml
 import os.path
 import uuid
 
 # get base path.
+base_path = os.path.dirname(os.path.abspath(__file__))
 
 def letters_only(string):
     text = ""
@@ -13,19 +22,17 @@ def letters_only(string):
                 continue
             text = text + char
     return text
-#
+
 def convert_json_to_yaml_manifest(file):
     filename = file.split('.')
     out_file = filename[0] + '.yaml'
-
-    base_path = os.path.dirname(os.path.abspath(__file__))
-    intermediate_dir = base_path + "/intermediate/"
+    input_dir = base_path + "/inputs/"
     output_dir = base_path + "/outputs/"
 
     res = {}
     #element_types = {['header': 'H', 'toc': 'TOC', 'paragraph': 'P', 'list': 'L', 'list_item': 'LI', 'list_body': ' 'span': 'Span']}
 
-    with open(intermediate_dir + file, 'r') as input_file, open(output_dir + out_file, "w") as output_file:
+    with open(input_dir + file, 'r') as input_file, open(output_dir + out_file, "w") as output_file:
         data = json.load(input_file)
         data = data['elements']
 
@@ -74,3 +81,5 @@ def convert_json_to_yaml_manifest(file):
             
         yaml.dump(res, output_file, allow_unicode=True)
 
+filename = sys.argv[1]
+convert_json_to_yaml_manifest(filename)
