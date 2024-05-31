@@ -5,6 +5,9 @@ import sys
 import asyncio
 from zipfile import ZipFile
 
+# only useful to cerate an index.
+# if all the content of the pdf is needed use pdf2text instead.
+
 from extract_txt_with_styling_info_from_pdf import extract_pdf_to_json
 from transform_from_json_data_to_yaml_manifest import convert_json_to_yaml_manifest
 

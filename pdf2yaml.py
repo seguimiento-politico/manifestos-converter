@@ -4,6 +4,9 @@ from pdfminer.high_level import extract_pages
 from pdfminer.layout import LTTextContainer, LTChar
 import yaml
 
+# only useful to create an index. not content included in the YAML resulting file
+# to include everything use pdf2text.py instead
+
 def extract_content_from_pdf(pdf_path):
     data = {"index": []}
     current_chapters = [0, 0, 0, 0, 0]  # Asumimos hasta H5, se puede ajustar
